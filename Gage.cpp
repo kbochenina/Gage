@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "Gage.h"
 
+bool sortCurrentTime(const job& first, const job& second){
+    return first.first > second.first;
+}
 
 
 Gage::Gage(DataInfo &d, int param): SchedulingMethod(d,param)
@@ -33,10 +36,10 @@ void Gage::CreateSortedResources(){
 double Gage::GetWFSchedule(Schedule &out){
     double res = 0.0;
     // while we have jobs to schedule and simulation time is less that T
-    while (queue.size() != 0 || currentTime < data.GetT()){
+    while (queue.size() != 0 && currentTime < data.GetT()){
         job currentJob = queue.back();
         if (!isWithWindows){
-            bool requiresReschedule = FindSchedule(currentJob, out);
+            FindSchedule(currentJob, out);
         }
         // if there are tasks to schedule, set current time as time of first task in queue
         if (queue.size() != 0)
@@ -46,9 +49,11 @@ double Gage::GetWFSchedule(Schedule &out){
     return res;
 }
 
-bool Gage::FindSchedule(job& currentJob, Schedule& out){
+void Gage::FindSchedule(job& currentJob, Schedule& out){
+	
     int wfNum = currentJob.second.first, localPNum = currentJob.second.second;
-    bool freeResourceWasFound = false, jobWasScheduled = false;
+    bool freeResourceWasFound = false, jobWasScheduled = false, jobWillBeRescheduled = false;
+	double newStartTime = data.GetT();
     for (const auto& resIndex: sortedResources){
         // check if this job can be executed on resource of this type 
         vector<int> pResTypes = data.Workflows(wfNum)[localPNum].GetResTypes();
@@ -56,17 +61,132 @@ bool Gage::FindSchedule(job& currentJob, Schedule& out){
             continue;
         // find actual starting time for the job
         double transferTimeEnd = FindDataTransferTimeEnd(wfNum, localPNum, resIndex, out);
+		double possibleStartTime = transferTimeEnd > currentTime ? transferTimeEnd : currentTime;
+		bool busyWithOtherJob = false;
         // find first resource of this type which isn't busy - check index
         for (int i = 0; i < data.Resources(resIndex).GetProcessorsCount(); i++) {
-            if (data.Resources(resIndex).CanPlace(i, currentTime, 0)){
-                freeResourceWasFound = true;
-
-                break;
+            if (data.Resources(resIndex).CanPlace(i, possibleStartTime, 0)){
+				freeResourceWasFound = true;
+				// if job can be placed on this resource
+				double execTime = data.Workflows(wfNum)[localPNum].GetExecTime(resIndex + 1, 1);
+				if (data.Resources(resIndex).CanPlace(i, possibleStartTime, execTime)){
+					// fix busy intervals
+					data.Resources(resIndex).AddInterval(execTime, possibleStartTime, i);
+					// add information to schedule
+					int globalPNum = data.GetInitPackageNumber(wfNum) + localPNum;
+					vector<int> processors;
+					processors.push_back(data.GetGlobalProcessorIndex(resIndex, i));
+					out.push_back(make_tuple(globalPNum, possibleStartTime, processors, execTime));
+					// job will be scheduled or rescheduled
+					queue.pop_back();
+					// add ready successors to queue
+					AddReadySuccessors(wfNum, localPNum, out, possibleStartTime + execTime);
+					jobWasScheduled = true;
+					
+				}
+				else {
+					double nextSchedTime = GetNextStartTime(resIndex, i, possibleStartTime, execTime, busyWithOtherJob);
+					if (!busyWithOtherJob && nextSchedTime < data.GetT()){
+						currentJob.first = nextSchedTime;
+						queue.pop_back();
+						queue.push_back(currentJob);
+						sort(queue.begin(), queue.end(), sortCurrentTime);
+						jobWillBeRescheduled = true;
+					}
+				}
+                if (jobWasScheduled || !busyWithOtherJob)
+					break;
             }
+			else {
+				double nextStartOnProc = FindNextFreeStart(resIndex, i, possibleStartTime);
+				if ( nextStartOnProc < newStartTime ){
+					newStartTime = nextStartOnProc;
+				}
+			}
         }
-        // if schedule was found or there is a need to reschedule, then break
+		if (jobWasScheduled || !busyWithOtherJob)
+			break;
     }
-    return true;
+	if (!freeResourceWasFound) 
+		cout << "There was no free resources for job " << localPNum << " of workflow " << wfNum << endl;
+	
+	if (jobWasScheduled) 
+		cout << "Job " << localPNum << " of workflow " << wfNum << " was successfully scheduled" <<  endl;
+
+	// if all resources was busy and there is free window later, reschedule this job with new start time
+	if (!jobWasScheduled && newStartTime < data.GetT()){
+		queue.back().first = newStartTime;
+		sort(queue.begin(), queue.end(), sortCurrentTime);
+	}
+		
+	if (jobWillBeRescheduled) 
+		cout << "Job " << localPNum << " of workflow " << wfNum << " will be rescheduled" <<  endl;
+}
+
+double Gage::FindNextFreeStart(int resIndex, int procIndex, double startTime){
+	vector<BusyIntervals> currentIntervals;
+	data.Resources(resIndex).GetCurrentIntervals(currentIntervals);
+	for (const auto& currentInterval : currentIntervals[procIndex].begin()->second){
+		if (currentInterval.second > startTime)
+			return currentInterval.second;
+	}
+	return 0;
+}
+
+double Gage::GetNextStartTime(int resIndex, int procIndex, double possibleStartTime, double execTime, bool busyWithOtherJob){
+	vector<BusyIntervals> initIntervals, currentIntervals;
+	data.Resources(resIndex).GetInitIntervals(initIntervals);
+	data.Resources(resIndex).GetCurrentIntervals(currentIntervals);
+	for (const auto& interval : initIntervals[procIndex].begin()->second){
+		if (interval.first > possibleStartTime){
+			for (const auto& currentInterval : currentIntervals[procIndex].begin()->second){
+				if (currentInterval.first > possibleStartTime && 
+					currentInterval.first != interval.first){
+						busyWithOtherJob = true;
+						return 0;
+				}
+			}
+			if (!busyWithOtherJob)
+				return interval.first;
+		}
+	}
+	return 0;
+}
+
+void Gage::AddReadySuccessors(int wfNum, int localPNum, Schedule &out, double possibleStartTime){
+	vector <int> childs;
+	data.Workflows(wfNum).GetOutput(localPNum, childs);
+	for (const auto& children: childs){
+		// if children isn't in queue yet
+		bool isChildrenInQueue = false;
+		for  (const auto& elem : queue){
+			if (elem.second.first == wfNum && elem.second.second == children)
+				isChildrenInQueue = true;
+		}
+		if (isChildrenInQueue)
+			continue;
+		vector <int> parents;
+		data.Workflows(wfNum).GetInput(children, parents);
+		bool allParentsScheduled = true;
+		for (const auto& parent : parents){
+			bool isParentScheduled = false;
+			int globalParentNum = data.GetInitPackageNumber(wfNum) + parent;
+			for (const auto& sched : out){
+				if (sched.get_head() == globalParentNum){
+					isParentScheduled = true;
+					break;
+				}
+			}
+			if (!isParentScheduled){
+				allParentsScheduled = false;
+				break;
+			}
+		}
+		if (allParentsScheduled){
+			queue.push_back(make_pair(possibleStartTime, make_pair(wfNum, children)));
+		}
+	}
+	sort(queue.begin(), queue.end(), sortCurrentTime);
 }
 
 double Gage::FindDataTransferTimeEnd(int wfNum, int localPNum, int resIndex, Schedule& out){
@@ -79,9 +199,10 @@ double Gage::FindDataTransferTimeEnd(int wfNum, int localPNum, int resIndex, Sch
         for (const auto& sched: out){
             if (sched.get_head() == globalParentNum){
                 int proc = sched.get<2>()[0];
+				int resFrom = data.GetResourceTypeIndex(proc);
                 int resType = data.GetResourceTypeIndex(proc);
                 double datasize = data.Workflows(wfNum).GetTransfer(i, localPNum);
-                double bandwidth = data.GetBandwidth(proc, resIndex);
+                double bandwidth = data.GetBandwidth(resFrom, resIndex);
                 double transferTime = datasize / bandwidth;
                 double currentEnd = sched.get<1>() + sched.get<3>() + transferTime;
                 if (currentEnd > transferTimeEnd)
@@ -92,9 +213,7 @@ double Gage::FindDataTransferTimeEnd(int wfNum, int localPNum, int resIndex, Sch
     return transferTimeEnd;
 }
 
-bool sortCurrentTime(const job& first, const job& second){
-    return first.first > second.first;
-}
+
 
 void Gage::AddInitJobsToQueue(){
     // for each workflow

@@ -31,6 +31,7 @@ public:
 	// add busy intervals [tBegin; (tBegin + execTime) round to highest stage border] to cores in coreNumbers
 	void AddDiaps(vector <int> coreNumbers, int tBegin, double execTime)  ;
 	vector <BusyIntervals> GetCurrentIntervals() { return current; }
+	vector <BusyIntervals> GetInitIntervals() { return init; }
 	vector <BusyIntervals> GetFixedIntervals() { return fixed; }
 	void SetCurrentIntervals(vector <BusyIntervals> & in) { current = in; } 
 	// find placement !for 1 processor for execTime

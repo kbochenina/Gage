@@ -32,6 +32,7 @@ public:
 	void ResetBusyIntervals();
 	void SetInitBusyIntervals();
 	void GetCurrentIntervals(vector<BusyIntervals> &storedIntervals);
+	void GetInitIntervals(vector<BusyIntervals> &storedIntervals) { storedIntervals = windows.GetInitIntervals(); }
 	void SetCurrentIntervals(vector<BusyIntervals> &storedIntervals);
 	void GetCurrentWindows(Intervals & out) const { out = windows; }
 	// find placement !for 1 processor for execTime
