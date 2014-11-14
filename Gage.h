@@ -1,7 +1,8 @@
 #pragma once
 #include "schedulingmethod.h"
 
-typedef pair<int, pair<int,int>> job;
+// (schedTime, compAmount), (wfNum, jobNum)
+typedef pair<pair<int,int>, pair<int,int>> job;
 typedef boost::tuple<int, int, double, double> fakeInterval;
 
 class Gage :

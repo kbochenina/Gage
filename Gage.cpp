@@ -2,7 +2,9 @@
 #include "Gage.h"
 
 bool sortCurrentTime(const job& first, const job& second){
-    return first.first > second.first;
+    if (first.first > second.first) return true;
+    else if (first.first == second.first)
+        return (first.second > second.second);
 }
 
 
@@ -43,7 +45,7 @@ double Gage::GetWFSchedule(Schedule &out){
         }
         // if there are tasks to schedule, set current time as time of first task in queue
         if (queue.size() != 0)
-            currentTime = queue.back().first;
+            currentTime = queue.back().first.first;
     }
     DeleteFakeIntervals();
     return res;
@@ -75,9 +77,10 @@ void Gage::FindSchedule(job& currentJob, Schedule& out){
             continue;
         double transferTimeEnd = FindDataTransferTimeEnd(wfNum, localPNum, resIndex, out);
         double possibleStartTime = transferTimeEnd > currentTime ? transferTimeEnd + 1 : currentTime;
-        bool busyWithOtherJob = false;
+        
         // find first resource of this type which isn't busy - check index
         for (int i = 0; i < data.Resources(resIndex).GetProcessorsCount(); i++) {
+            bool busyWithOtherJob = false;
             // if processor is free at the time
             if (data.Resources(resIndex).CanPlace(i, possibleStartTime, 0)){
 				    freeResourceWasFound = true;
@@ -102,7 +105,7 @@ void Gage::FindSchedule(job& currentJob, Schedule& out){
 					    double nextSchedTime = GetNextStartTime(resIndex, i, possibleStartTime, execTime, busyWithOtherJob);
                    // if job cannot be placed because of initial time windows, job will be rescheduled later
 					    if (!busyWithOtherJob && nextSchedTime < data.GetT()){
-						    currentJob.first = nextSchedTime;
+						    currentJob.first.first = nextSchedTime;
 						    queue.pop_back();
 						    queue.push_back(currentJob);
 						    sort(queue.begin(), queue.end(), sortCurrentTime);
@@ -111,6 +114,10 @@ void Gage::FindSchedule(job& currentJob, Schedule& out){
                       fakeIntervals.push_back(make_tuple(resIndex, i, possibleStartTime, nextSchedTime-possibleStartTime));
                       break;
 					    }
+                   else if (busyWithOtherJob){
+                       if (nextSchedTime < newStartTime)
+                           newStartTime = nextSchedTime;
+                   }
 				    }
             }
             // if processor is busy at the time, find next free start time on this processor
@@ -124,10 +131,11 @@ void Gage::FindSchedule(job& currentJob, Schedule& out){
 			break;
     }
 
-	if (!freeResourceWasFound) {
+	if (!freeResourceWasFound || (freeResourceWasFound && !jobWasScheduled)) {
 		cout << "There was no free resources for job " << localPNum << " of workflow " << wfNum << endl;
+      cout << "New start time: " << newStartTime << endl;
       if (newStartTime < data.GetT()){
-		    queue.back().first = newStartTime;
+		    queue.back().first.first = newStartTime;
 		    sort(queue.begin(), queue.end(), sortCurrentTime);
 	     }
 	 }
@@ -136,8 +144,6 @@ void Gage::FindSchedule(job& currentJob, Schedule& out){
 		cout << "Job " << localPNum << " of workflow " << wfNum << " was successfully scheduled" <<  endl;
 
 	// if all resources was busy and there is free window later, reschedule this job with new start time
-	
-		
 	if (jobWillBeRescheduled) 
 		cout << "Job " << localPNum << " of workflow " << wfNum << " will be rescheduled" <<  endl;
 }
@@ -163,14 +169,14 @@ double Gage::GetNextStartTime(int resIndex, int procIndex, double possibleStartT
 				if (currentInterval.first > possibleStartTime && 
 					currentInterval.first != interval.first){
 						busyWithOtherJob = true;
-						return 0;
+						return currentInterval.second;
 				}
 			}
 			if (!busyWithOtherJob)
 				return interval.first;
 		}
 	}
-	return 0;
+	return possibleStartTime;
 }
 
 void Gage::AddReadySuccessors(int wfNum, int localPNum, Schedule &out, double possibleStartTime){
@@ -203,7 +209,7 @@ void Gage::AddReadySuccessors(int wfNum, int localPNum, Schedule &out, double po
 			}
 		}
 		if (allParentsScheduled){
-			queue.push_back(make_pair(possibleStartTime + 1, make_pair(wfNum, children)));
+			queue.push_back(make_pair(make_pair(possibleStartTime + 1, data.Workflows(wfNum).GetAmount(children)), make_pair(wfNum, children)));
 		}
 	}
 	sort(queue.begin(), queue.end(), sortCurrentTime);
@@ -244,7 +250,7 @@ void Gage::AddInitJobsToQueue(){
         // for all packages (check if workflows are numbered from zero)
         for (unsigned j = 0; j < data.Workflows(i).GetPackageCount(); j++){
             if (data.Workflows(i).IsPackageInit(j)){
-                queue.push_back(make_pair(data.Workflows(i).GetStartTime(), make_pair(i, j)));
+                queue.push_back(make_pair(make_pair(data.Workflows(i).GetStartTime(), data.Workflows(i).GetAmount(j)), make_pair(i, j)));
             }
         }
     }
