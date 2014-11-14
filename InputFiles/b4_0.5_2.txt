@@ -1,0 +1,9 @@
+Types count: 4
+Min bandwidth: 0.25
+Max bandwidth: 3
+Koeff value: 0.5
+Matrix of connection speed: 
+0 0.429857 2.97824 2.84924 
+0.429857 0 1.76205 0.438772 
+2.97824 1.76205 0 0.588042 
+2.84924 0.438772 0.588042 0 

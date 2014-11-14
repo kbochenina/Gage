@@ -1,0 +1,9 @@
+canExecuteOnDiffResources=0
+InputFolderPath="InputFiles"
+DebugInfoFile="defaultExperRes.txt"
+ResultFile="result.txt"
+T=40000
+minLength=27125
+koeff=0
+CCR=1
+h=0.5
