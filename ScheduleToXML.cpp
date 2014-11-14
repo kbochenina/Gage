@@ -77,7 +77,8 @@ void ScheduleToXML::BusyToXML(ofstream &f){
 		// get intervals of this resource type
 		data.resources[i].GetCurrentWindows(windows);
 		// get fixed intervals 
-		vector <BusyIntervals> fixed = windows.GetFixedIntervals();
+		//vector <BusyIntervals> fixed = windows.GetFixedIntervals();
+      vector <BusyIntervals> fixed = windows.GetInitIntervals();
 		// for each resource
 		for (unsigned j = 0; j < fixed.size(); j++){
 			// get pointer to resource's intervals

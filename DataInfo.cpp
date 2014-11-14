@@ -1020,7 +1020,7 @@ void DataInfo::InitResources(string f, bool canExecuteOnDiffResources){
                      errWrongFormatFull += second;
                      throw UserException(errWrongFormatFull);
                   }
-                  //oneResDiaps.push_back(make_pair(one,two));
+                  oneResDiaps.push_back(make_pair(one,two));
                }
                busyIntervals.insert(make_pair(k+1, oneResDiaps));
 			   // !!!

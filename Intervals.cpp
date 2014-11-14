@@ -143,17 +143,55 @@ void Intervals::AddDiaps(vector <int> coreNumbers, int tBegin, double execTime) 
    }
 }
 
+// delete busy intervals [tBegin; (tBegin + execTime) round to highest stage border] from cores in coreNumbers
+void Intervals::DeleteDiaps(vector <int> coreNumbers, int tBegin, double execTime)  {
+   for (size_t i = 0; i < coreNumbers.size(); i++){
+      bool intervalWasFound = false;
+      int processor = coreNumbers[i];
+      int number = 0;
+      for (size_t i = 0; i < current.size(); i++){
+         for (BusyIntervals::iterator j = current[i].begin(); j != current[i].end(); j++){
+            if (number != processor){
+               number++;
+               continue;
+            }
+            // when we find right processor
+            else {
+                // cycle on intervals
+                for (size_t k = 0; k < j->second.size(); k++){
+                    if (tBegin == j->second[k].first && tBegin + execTime + 1 == j->second[k].second){
+                        j->second.erase(j->second.begin() + k);
+                        intervalWasFound = true;
+                    }
+                }
+                if (!intervalWasFound){
+                    cout << "Intervals::DeleteDiaps() warning. Interval [" << tBegin << ";" << tBegin + execTime << " was not found on processor " << processor << " of some resource\n";
+                }
+            }
+         }
+     }
+   }
+}
+
 // check received interval for intersection with existing intervals
 bool Intervals::CanPlace(const int& resNum, const int &procNum, const int& tBegin, const double& execTime){
    
    const auto& intervals = current[resNum][procNum];
    
    for (const auto& interval : intervals){
+       // if interval is on the left, continue
+      if (interval.second < tBegin)
+         continue;
+      // if tBegin is in the interval, job cannot be placed here
       if (tBegin >= interval.first && tBegin < interval.second)
          return false;
       const double tEnd = tBegin + execTime;
+      // if end of job is in busy time window, it cannot be placed here
       if (tEnd > interval.first && tEnd <= interval.second)
          return false;
+      // if job overlaps busy time window, it cannot be placed here
+      if (tBegin < interval.first && tEnd > interval.second)
+          return false;
    }
    return true;
 }

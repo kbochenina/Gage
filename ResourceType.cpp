@@ -53,6 +53,13 @@ void ResourceType::AddInterval(const double &execTime, const int &tbegin, const 
 	windows.AddDiaps(processorNumber, tbegin, execTime);
 }
 
+// delete interval [tbegin; tbegin + execTime] from processor
+void ResourceType::DeleteInterval(const double &execTime, const int &tbegin, const int& processor) {
+	vector <int> processorNumber;
+	processorNumber.push_back(processor);
+	windows.DeleteDiaps(processorNumber, tbegin, execTime);
+}
+
 // check received interval for intersection with existing intervals
 bool ResourceType::CanPlace(const int& num, const int& tBegin, const double& execTime){
 	const int resNum = num / numCoresPerOneRes;

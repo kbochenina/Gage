@@ -45,83 +45,103 @@ double Gage::GetWFSchedule(Schedule &out){
         if (queue.size() != 0)
             currentTime = queue.back().first;
     }
-
+    DeleteFakeIntervals();
     return res;
+}
+
+void Gage::DeleteFakeIntervals(){
+    for (const auto& interval : fakeIntervals){
+        int resIndex = interval.get_head(),
+            procIndex = interval.get<1>(),
+            tBegin = interval.get<2>(),
+            execTime = interval.get<3>();
+        data.Resources(resIndex).DeleteInterval(execTime, tBegin, procIndex);
+    }
 }
 
 void Gage::FindSchedule(job& currentJob, Schedule& out){
 	
     int wfNum = currentJob.second.first, localPNum = currentJob.second.second;
+    int globalPNum = data.GetInitPackageNumber(wfNum) + localPNum;
+    // find actual starting time for the job
+    
+    vector<int> pResTypes = data.Workflows(wfNum)[localPNum].GetResTypes();
+
     bool freeResourceWasFound = false, jobWasScheduled = false, jobWillBeRescheduled = false;
-	double newStartTime = data.GetT();
+	 double newStartTime = data.GetT();
     for (const auto& resIndex: sortedResources){
         // check if this job can be executed on resource of this type 
-        vector<int> pResTypes = data.Workflows(wfNum)[localPNum].GetResTypes();
         if (find(pResTypes.begin(), pResTypes.end(), resIndex + 1) == pResTypes.end())
             continue;
-        // find actual starting time for the job
         double transferTimeEnd = FindDataTransferTimeEnd(wfNum, localPNum, resIndex, out);
-		double possibleStartTime = transferTimeEnd > currentTime ? transferTimeEnd : currentTime;
-		bool busyWithOtherJob = false;
+        double possibleStartTime = transferTimeEnd > currentTime ? transferTimeEnd + 1 : currentTime;
+        bool busyWithOtherJob = false;
         // find first resource of this type which isn't busy - check index
         for (int i = 0; i < data.Resources(resIndex).GetProcessorsCount(); i++) {
+            // if processor is free at the time
             if (data.Resources(resIndex).CanPlace(i, possibleStartTime, 0)){
-				freeResourceWasFound = true;
-				// if job can be placed on this resource
-				double execTime = data.Workflows(wfNum)[localPNum].GetExecTime(resIndex + 1, 1);
-				if (data.Resources(resIndex).CanPlace(i, possibleStartTime, execTime)){
-					// fix busy intervals
-					data.Resources(resIndex).AddInterval(execTime, possibleStartTime, i);
-					// add information to schedule
-					int globalPNum = data.GetInitPackageNumber(wfNum) + localPNum;
-					vector<int> processors;
-					processors.push_back(data.GetGlobalProcessorIndex(resIndex, i));
-					out.push_back(make_tuple(globalPNum, possibleStartTime, processors, execTime));
-					// job will be scheduled or rescheduled
-					queue.pop_back();
-					// add ready successors to queue
-					AddReadySuccessors(wfNum, localPNum, out, possibleStartTime + execTime);
-					jobWasScheduled = true;
-					
-				}
-				else {
-					double nextSchedTime = GetNextStartTime(resIndex, i, possibleStartTime, execTime, busyWithOtherJob);
-					if (!busyWithOtherJob && nextSchedTime < data.GetT()){
-						currentJob.first = nextSchedTime;
-						queue.pop_back();
-						queue.push_back(currentJob);
-						sort(queue.begin(), queue.end(), sortCurrentTime);
-						jobWillBeRescheduled = true;
-					}
-				}
-                if (jobWasScheduled || !busyWithOtherJob)
-					break;
+				    freeResourceWasFound = true;
+				    double execTime = data.Workflows(wfNum)[localPNum].GetExecTime(resIndex + 1, 1);
+                // if job can be placed on this resource
+                if (data.Resources(resIndex).CanPlace(i, possibleStartTime, execTime)){
+					    // fix busy intervals
+					    data.Resources(resIndex).AddInterval(execTime, possibleStartTime, i);
+					    // add information to schedule
+					    vector<int> processors;
+					    processors.push_back(data.GetGlobalProcessorIndex(resIndex, i));
+					    out.push_back(make_tuple(globalPNum, possibleStartTime, processors, execTime));
+					    // job will be scheduled or rescheduled
+					    queue.pop_back();
+					    // add ready successors to queue
+					    AddReadySuccessors(wfNum, localPNum, out, possibleStartTime + execTime);
+					    jobWasScheduled = true;
+                   break;
+				    }
+                // if job cannot be placed on this resource
+				    else {
+					    double nextSchedTime = GetNextStartTime(resIndex, i, possibleStartTime, execTime, busyWithOtherJob);
+                   // if job cannot be placed because of initial time windows, job will be rescheduled later
+					    if (!busyWithOtherJob && nextSchedTime < data.GetT()){
+						    currentJob.first = nextSchedTime;
+						    queue.pop_back();
+						    queue.push_back(currentJob);
+						    sort(queue.begin(), queue.end(), sortCurrentTime);
+						    jobWillBeRescheduled = true;
+                      data.Resources(resIndex).AddInterval(nextSchedTime-possibleStartTime, possibleStartTime, i);
+                      fakeIntervals.push_back(make_tuple(resIndex, i, possibleStartTime, nextSchedTime-possibleStartTime));
+                      break;
+					    }
+				    }
             }
-			else {
-				double nextStartOnProc = FindNextFreeStart(resIndex, i, possibleStartTime);
-				if ( nextStartOnProc < newStartTime ){
-					newStartTime = nextStartOnProc;
-				}
-			}
+            // if processor is busy at the time, find next free start time on this processor
+            else{
+                double nextStartOnProc = FindNextFreeStart(resIndex, i, possibleStartTime);
+                if (nextStartOnProc < newStartTime)
+                    newStartTime = nextStartOnProc;
+            }
         }
-		if (jobWasScheduled || !busyWithOtherJob)
+		if (jobWasScheduled || jobWillBeRescheduled)
 			break;
     }
-	if (!freeResourceWasFound) 
+
+	if (!freeResourceWasFound) {
 		cout << "There was no free resources for job " << localPNum << " of workflow " << wfNum << endl;
+      if (newStartTime < data.GetT()){
+		    queue.back().first = newStartTime;
+		    sort(queue.begin(), queue.end(), sortCurrentTime);
+	     }
+	 }
 	
 	if (jobWasScheduled) 
 		cout << "Job " << localPNum << " of workflow " << wfNum << " was successfully scheduled" <<  endl;
 
 	// if all resources was busy and there is free window later, reschedule this job with new start time
-	if (!jobWasScheduled && newStartTime < data.GetT()){
-		queue.back().first = newStartTime;
-		sort(queue.begin(), queue.end(), sortCurrentTime);
-	}
+	
 		
 	if (jobWillBeRescheduled) 
 		cout << "Job " << localPNum << " of workflow " << wfNum << " will be rescheduled" <<  endl;
 }
+
 
 double Gage::FindNextFreeStart(int resIndex, int procIndex, double startTime){
 	vector<BusyIntervals> currentIntervals;
@@ -133,7 +153,7 @@ double Gage::FindNextFreeStart(int resIndex, int procIndex, double startTime){
 	return 0;
 }
 
-double Gage::GetNextStartTime(int resIndex, int procIndex, double possibleStartTime, double execTime, bool busyWithOtherJob){
+double Gage::GetNextStartTime(int resIndex, int procIndex, double possibleStartTime, double execTime, bool& busyWithOtherJob){
 	vector<BusyIntervals> initIntervals, currentIntervals;
 	data.Resources(resIndex).GetInitIntervals(initIntervals);
 	data.Resources(resIndex).GetCurrentIntervals(currentIntervals);
@@ -183,7 +203,7 @@ void Gage::AddReadySuccessors(int wfNum, int localPNum, Schedule &out, double po
 			}
 		}
 		if (allParentsScheduled){
-			queue.push_back(make_pair(possibleStartTime, make_pair(wfNum, children)));
+			queue.push_back(make_pair(possibleStartTime + 1, make_pair(wfNum, children)));
 		}
 	}
 	sort(queue.begin(), queue.end(), sortCurrentTime);
@@ -199,11 +219,14 @@ double Gage::FindDataTransferTimeEnd(int wfNum, int localPNum, int resIndex, Sch
         for (const auto& sched: out){
             if (sched.get_head() == globalParentNum){
                 int proc = sched.get<2>()[0];
-				int resFrom = data.GetResourceTypeIndex(proc);
-                int resType = data.GetResourceTypeIndex(proc);
-                double datasize = data.Workflows(wfNum).GetTransfer(i, localPNum);
-                double bandwidth = data.GetBandwidth(resFrom, resIndex);
-                double transferTime = datasize / bandwidth;
+				    int resFrom = data.GetResourceTypeIndex(proc);
+                double transferTime = 0.0;
+                if (resFrom != resIndex){
+                    double datasize = data.Workflows(wfNum).GetTransfer(i, localPNum);
+                    double bandwidth = data.GetBandwidth(resFrom, resIndex);
+                    if (bandwidth != 0) 
+                        transferTime = datasize / bandwidth;
+                }
                 double currentEnd = sched.get<1>() + sched.get<3>() + transferTime;
                 if (currentEnd > transferTimeEnd)
                     transferTimeEnd = currentEnd;
