@@ -806,10 +806,14 @@ void DataInfo::InitWorkflows(string f){
                     s.erase(found,2);
                     dataSize = atof(current.c_str());
                 }
+				// for compatibility with wrong input data !!!
                 if (!isPackageNumber){
-					if (fullPackagesCount - 1 > transfer.size() - 1 || outPackageNumber - 1 > transfer[0].size() - 1)
-						throw UserException("DataInfo::InitWorkflows() : wrong input file, package transfer number is out of range");
-                    transfer[fullPackagesCount-1][outPackageNumber-1] = dataSize;
+					if (fullPackagesCount - 1 > transfer.size() - 1 || outPackageNumber - 1 > transfer[0].size() - 1){
+						//throw UserException("DataInfo::InitWorkflows() : wrong input file, package transfer number is out of range");
+					}
+					else {
+						 transfer[fullPackagesCount-1][outPackageNumber-1] = dataSize;
+					}
 				}
                 isPackageNumber = !isPackageNumber;
             }

@@ -1,0 +1,73 @@
+Workflows count = 1
+Workflow 1 (10 packages)
+Package 1
+Alpha: 0.13
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 22035
+Transfer: 
+Package 2
+Alpha: 0.06
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 110326
+Transfer: P6 18402Mb P8 18402Mb P9 18402Mb P10 18402Mb 
+Package 3
+Alpha: 0.25
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 17737
+Transfer: 
+Package 4
+Alpha: 0.19
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 127703
+Transfer: P7 20287Mb 
+Package 5
+Alpha: 0.16
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 16950
+Transfer: 
+Package 6
+Alpha: 0.16
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 71088
+Transfer: 
+Package 7
+Alpha: 0.17
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 171720
+Transfer: 
+Package 8
+Alpha: 0.02
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 52384
+Transfer: 
+Package 9
+Alpha: 0
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 94817
+Transfer: 
+Package 10
+Alpha: 0.05
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 69260
+Transfer: 
+Connectivity matrix: 
+0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 1 0 1 1 1 
+0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 1 0 0 0 
+0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 

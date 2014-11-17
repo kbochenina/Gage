@@ -1,0 +1,353 @@
+Workflows count = 1
+Workflow 1 (50 packages)
+Package 1
+Alpha: 0.02
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 76955
+Transfer: P23 362Mb P51 362Mb P51 362Mb P51 362Mb P29 362Mb P51 362Mb P31 362Mb P32 362Mb P45 362Mb P49 362Mb 
+Package 2
+Alpha: 0.06
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 170517
+Transfer: P23 501Mb P24 501Mb P25 501Mb P51 501Mb P51 501Mb P51 501Mb P27 501Mb P51 501Mb P29 501Mb P51 501Mb P51 501Mb P32 501Mb P33 501Mb P44 501Mb 
+Package 3
+Alpha: 0.13
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 87238
+Transfer: P24 393Mb P24 393Mb P51 393Mb P51 393Mb P51 393Mb P51 393Mb P51 393Mb P51 393Mb P29 393Mb P51 393Mb P51 393Mb P31 393Mb P33 393Mb P47 393Mb 
+Package 4
+Alpha: 0.2
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 61423
+Transfer: P51 531Mb P51 531Mb P51 531Mb P27 531Mb P51 531Mb P51 531Mb P51 531Mb P30 531Mb P43 531Mb P44 531Mb P45 531Mb P46 531Mb P47 531Mb P48 531Mb 
+Package 5
+Alpha: 0.18
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 56324
+Transfer: P25 393Mb P51 393Mb P27 393Mb P28 393Mb P51 393Mb P51 393Mb P51 393Mb P32 393Mb P51 393Mb P43 393Mb P44 393Mb P45 393Mb P47 393Mb P48 393Mb 
+Package 6
+Alpha: 0.21
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 29373
+Transfer: P51 430Mb P27 430Mb P51 430Mb P29 430Mb P51 430Mb P33 430Mb P43 430Mb P44 430Mb P45 430Mb P49 430Mb P50 430Mb 
+Package 7
+Alpha: 0.14
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 183493
+Transfer: P51 525Mb P51 525Mb P27 525Mb P51 525Mb P29 525Mb P51 525Mb P51 525Mb P32 525Mb P45 525Mb 
+Package 8
+Alpha: 0.11
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 26170
+Transfer: P24 460Mb P51 460Mb P51 460Mb P27 460Mb P51 460Mb P28 460Mb P51 460Mb P51 460Mb P51 460Mb P32 460Mb P44 460Mb P49 460Mb 
+Package 9
+Alpha: 0.22
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 142654
+Transfer: P23 418Mb P24 418Mb P51 418Mb P26 418Mb P51 418Mb P27 418Mb P51 418Mb P51 418Mb P51 418Mb P32 418Mb P33 418Mb P47 418Mb P49 418Mb 
+Package 10
+Alpha: 0.07
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 117205
+Transfer: P23 381Mb P24 381Mb P26 381Mb P51 381Mb P29 381Mb P51 381Mb P33 381Mb P45 381Mb P49 381Mb 
+Package 11
+Alpha: 0.13
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 21283
+Transfer: P23 355Mb P24 355Mb P27 355Mb P51 355Mb P29 355Mb P51 355Mb P43 355Mb P45 355Mb P49 355Mb 
+Package 12
+Alpha: 0.02
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 72757
+Transfer: P23 396Mb P51 396Mb P27 396Mb P28 396Mb P51 396Mb P51 396Mb P30 396Mb P33 396Mb P45 396Mb P49 396Mb 
+Package 13
+Alpha: 0.07
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 80581
+Transfer: P23 458Mb P26 458Mb P28 458Mb P51 458Mb P51 458Mb P51 458Mb P51 458Mb P51 458Mb P33 458Mb P44 458Mb P47 458Mb P49 458Mb 
+Package 14
+Alpha: 0.02
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 30332
+Transfer: P25 367Mb P51 367Mb P51 367Mb P26 367Mb P27 367Mb P28 367Mb P51 367Mb P33 367Mb P44 367Mb 
+Package 15
+Alpha: 0.17
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 39180
+Transfer: P23 399Mb P25 399Mb P51 399Mb P26 399Mb P51 399Mb P27 399Mb P29 399Mb P51 399Mb P32 399Mb P51 399Mb P33 399Mb P43 399Mb P44 399Mb 
+Package 16
+Alpha: 0.11
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 133607
+Transfer: P23 491Mb P51 491Mb P51 491Mb P26 491Mb P51 491Mb P27 491Mb P51 491Mb P28 491Mb P51 491Mb P51 491Mb P32 491Mb P51 491Mb P44 491Mb P46 491Mb 
+Package 17
+Alpha: 0.08
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 67849
+Transfer: P23 358Mb P24 358Mb P51 358Mb P26 358Mb P51 358Mb P27 358Mb P29 358Mb P32 358Mb P43 358Mb P47 358Mb 
+Package 18
+Alpha: 0.03
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 56878
+Transfer: P24 491Mb P51 491Mb P26 491Mb P27 491Mb P51 491Mb P51 491Mb P30 491Mb P32 491Mb P51 491Mb P43 491Mb P44 491Mb P46 491Mb P49 491Mb 
+Package 19
+Alpha: 0.12
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 30136
+Transfer: P24 360Mb P26 360Mb P26 360Mb P51 360Mb P51 360Mb P31 360Mb P32 360Mb P43 360Mb P44 360Mb P49 360Mb 
+Package 20
+Alpha: 0.05
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 123707
+Transfer: P23 378Mb P24 378Mb P51 378Mb P26 378Mb P51 378Mb P27 378Mb P28 378Mb P51 378Mb P29 378Mb P30 378Mb P51 378Mb P43 378Mb P45 378Mb P48 378Mb P49 378Mb 
+Package 21
+Alpha: 0.13
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 71606
+Transfer: P23 406Mb P24 406Mb P51 406Mb P51 406Mb P26 406Mb P27 406Mb P51 406Mb P28 406Mb P51 406Mb P29 406Mb P51 406Mb P32 406Mb P44 406Mb P49 406Mb 
+Package 22
+Alpha: 0.02
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 94686
+Transfer: P24 447Mb P51 447Mb P26 447Mb P51 447Mb P51 447Mb P29 447Mb P51 447Mb P51 447Mb P30 447Mb P31 447Mb P32 447Mb P44 447Mb P45 447Mb 
+Package 23
+Alpha: 0.11
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 156989
+Transfer: 
+Package 24
+Alpha: 0.04
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 42522
+Transfer: P45 354Mb 
+Package 25
+Alpha: 0.12
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 168860
+Transfer: P43 540Mb P45 540Mb 
+Package 26
+Alpha: 0.1
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 113146
+Transfer: P49 379Mb 
+Package 27
+Alpha: 0.11
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 21951
+Transfer: P43 444Mb 
+Package 28
+Alpha: 0.16
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 143304
+Transfer: P47 416Mb 
+Package 29
+Alpha: 0.14
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 66589
+Transfer: P46 393Mb P48 393Mb 
+Package 30
+Alpha: 0.08
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 104298
+Transfer: 
+Package 31
+Alpha: 0.23
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 97426
+Transfer: 
+Package 32
+Alpha: 0.07
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 73128
+Transfer: P48 445Mb 
+Package 33
+Alpha: 0.16
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 31573
+Transfer: 
+Package 34
+Alpha: 0.16
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 49343
+Transfer: P48 388Mb 
+Package 35
+Alpha: 0.05
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 42392
+Transfer: P48 399Mb 
+Package 36
+Alpha: 0.02
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 54258
+Transfer: P44 496Mb 
+Package 37
+Alpha: 0.01
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 42337
+Transfer: 
+Package 38
+Alpha: 0.09
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 50993
+Transfer: P45 376Mb 
+Package 39
+Alpha: 0.11
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 149184
+Transfer: P44 477Mb 
+Package 40
+Alpha: 0.06
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 51747
+Transfer: P46 417Mb 
+Package 41
+Alpha: 0.23
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 121671
+Transfer: 
+Package 42
+Alpha: 0.15
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 54024
+Transfer: 
+Package 43
+Alpha: 0.09
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 178616
+Transfer: 
+Package 44
+Alpha: 0.05
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 107722
+Transfer: 
+Package 45
+Alpha: 0.11
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 134190
+Transfer: 
+Package 46
+Alpha: 0.03
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 120799
+Transfer: 
+Package 47
+Alpha: 0.03
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 87442
+Transfer: 
+Package 48
+Alpha: 0.15
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 108311
+Transfer: 
+Package 49
+Alpha: 0.08
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 159708
+Transfer: 
+Package 50
+Alpha: 0.1
+Resources types: -1
+Processors count: 1, 2, 4
+GFlop: 123544
+Transfer: 
+Connectivity matrix: 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 0 1 0 1 0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 1 1 0 1 1 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 1 1 1 0 0 0 1 1 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 1 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 1 0 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 1 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 1 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 1 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 1 1 0 1 0 0 1 1 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 1 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 1 1 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 1 0 0 1 0 1 0 0 0 0 0 0 0 0 0 0 1 1 0 1 0 0 1 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 1 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 1 1 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 1 1 1 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 

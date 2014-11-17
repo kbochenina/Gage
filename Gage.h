@@ -17,6 +17,8 @@ class Gage :
     vector <int> sortedResources;
     // fake intervals for job that will be rescheduled
     vector <fakeInterval> fakeIntervals;
+	// last viewed job
+	job lastViewedJob;
     // add jobs without parents to the queue
     void AddInitJobsToQueue();
     // build sortedResources vector
@@ -26,7 +28,7 @@ class Gage :
     // return data transfer time for current job
     double FindDataTransferTimeEnd(int, int, int, Schedule&);
 	// add ready successors to queue
-	void AddReadySuccessors(int, int, Schedule&, double);
+	void AddReadySuccessors(int, int, Schedule&);
 	// get next scheduling time as start of next busy interval
 	double GetNextStartTime(int, int, double, double, bool&);
    // find next free interval for resource (if there is no free interval, returning value is data.GetT())

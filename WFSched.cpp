@@ -63,20 +63,20 @@ int _tmain(int argc, wchar_t**argv)
 		    sched.GetMetrics("simple_metrics.txt", "SimpleSched",metricsFileName);
 		    sched.TestSchedule();
 		    cout << "***************************************************" << endl;
-		    sched.GetSchedule(RESERVED_ORDERED);
-		    sched.GetMetrics("reserved_metrics.txt", "StagedReservedTime",metricsFileName);
-		    sched.TestSchedule();
-		    cout << "***************************************************" << endl;
-		    /*sched.GetSchedule(EFF_ORDERED);
-		    sched.GetMetrics("eff_metrics.txt", "StagedEfficiency");
-		    sched.TestSchedule();
-		    cout << "***************************************************" << endl;*/
-		    sched.SetSchedulingStrategy(CLUST);
-		    sched.GetSchedule(CLUSTERED);
-		    sched.GetMetrics("clustered.txt", "Clustered", metricsFileName);
-		    sched.TestSchedule();
-		    cout << "***************************************************" << endl;
-          sched.SetSchedulingStrategy(GAGE);
+		    //sched.GetSchedule(RESERVED_ORDERED);
+		    //sched.GetMetrics("reserved_metrics.txt", "StagedReservedTime",metricsFileName);
+		    //sched.TestSchedule();
+		    //cout << "***************************************************" << endl;
+		    ///*sched.GetSchedule(EFF_ORDERED);
+		    //sched.GetMetrics("eff_metrics.txt", "StagedEfficiency");
+		    //sched.TestSchedule();
+		    //cout << "***************************************************" << endl;*/
+		    //sched.SetSchedulingStrategy(CLUST);
+		    //sched.GetSchedule(CLUSTERED);
+		    //sched.GetMetrics("clustered.txt", "Clustered", metricsFileName);
+		    //sched.TestSchedule();
+		    //cout << "***************************************************" << endl;
+            sched.SetSchedulingStrategy(GAGE);
 		    sched.GetSchedule(GAGEWITHOUTWINDOWS);
 		    sched.GetMetrics("gagewithoutwindows.txt", "GageWithoutWindows", metricsFileName);
 		    sched.TestSchedule();
