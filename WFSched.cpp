@@ -76,7 +76,7 @@ int _tmain(int argc, wchar_t**argv)
 		    //sched.GetMetrics("clustered.txt", "Clustered", metricsFileName);
 		    //sched.TestSchedule();
 		    //cout << "***************************************************" << endl;
-            sched.SetSchedulingStrategy(GAGE);
+          sched.SetSchedulingStrategy(GAGE);
 		    sched.GetSchedule(GAGEWITHOUTWINDOWS);
 		    sched.GetMetrics("gagewithoutwindows.txt", "GageWithoutWindows", metricsFileName);
 		    sched.TestSchedule();
